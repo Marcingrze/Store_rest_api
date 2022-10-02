@@ -27,7 +27,7 @@ def create_store():
     return new_store, 201
 
 @app.post("/store/<string:name>/item")
-def add_item(name):
+def add_item(name: str):
     request_data = request.get_json()
     for store in stores:
         if store["name"] == name:
@@ -36,3 +36,16 @@ def add_item(name):
             return new_item, 201
     return {"message": "store not found"}, 404
 
+@app.get("/store/<string:name>/item")
+def get_item_in_store(name: str):
+    for store in stores:
+        if store["name"] == name:
+            return {"items": store["items"]}, 201
+    return {"message": "store not found"}, 404
+
+@app.get("/store/<string:name>")
+def get_store_info(name : str):
+    for store in stores:
+        if store["name"] == name:
+            return {"store": store}, 201
+    return {"message": "store not found"}, 404
