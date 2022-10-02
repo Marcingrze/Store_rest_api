@@ -32,7 +32,7 @@ def add_item(name):
     for store in stores:
         if store["name"] == name:
             new_item = {"name": request_data["name"], "price": request_data["price"]}
-            stores[name].append(new_item)
+            store["items"].append(new_item)
             return new_item, 201
     return {"message": "store not found"}, 404
 
